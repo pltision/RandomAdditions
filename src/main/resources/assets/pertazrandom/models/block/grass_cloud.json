@@ -1,0 +1,9 @@
+{   "parent": "minecraft:block/cube_bottom_top",
+    "textures": {
+        "particle": "pertazrandom:block/cloud",
+        "bottom": "pertazrandom:block/cloud",
+        "top": "pertazrandom:block/cloud_grass",
+        "side": "pertazrandom:block/grass_cloud_side"
+    },
+    "render_type": "translucent"
+}

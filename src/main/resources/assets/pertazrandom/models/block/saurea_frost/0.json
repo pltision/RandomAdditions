@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "pertazrandom:block/saurea_frost/0"
+  },
+  "render_type": "cutout"
+}

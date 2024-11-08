@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pertazrandom:block/cloud_brush_leaves"
+  },
+  "render_type": "translucent"
+}

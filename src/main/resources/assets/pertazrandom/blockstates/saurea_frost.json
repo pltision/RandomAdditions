@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "pertazrandom:block/saurea_frost/0"
+    },
+    "age=1": {
+      "model": "pertazrandom:block/saurea_frost/1"
+    },
+    "age=2": {
+      "model": "pertazrandom:block/saurea_frost/1"
+    },
+    "age=3": {
+      "model": "pertazrandom:block/saurea_frost/2"
+    },
+    "age=4": {
+      "model": "pertazrandom:block/saurea_frost/2"
+    },
+    "age=5": {
+      "model": "pertazrandom:block/saurea_frost/3"
+    },
+    "age=6": {
+      "model": "pertazrandom:block/saurea_frost/3"
+    },
+    "age=7": {
+      "model": "pertazrandom:block/saurea_frost/4"
+    }
+  }
+}
