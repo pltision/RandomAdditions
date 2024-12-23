@@ -11,7 +11,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import yee.pltision.randomadditions.mixin.CreeperMixin;
 
 import java.util.*;
 import java.util.function.BiConsumer;
