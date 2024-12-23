@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/tinted_cross",
+  "textures": {
+    "cross": "pertazrandom:block/creeper_fern/seedling_0"
+  },
+  "render_type": "cutout"
+}

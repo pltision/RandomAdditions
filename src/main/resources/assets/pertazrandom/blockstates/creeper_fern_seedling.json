@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "pertazrandom:block/creeper_fern/seedling_0"
+    },
+    "age=1": {
+      "model": "pertazrandom:block/creeper_fern/seedling_1"
+    }
+  }
+}

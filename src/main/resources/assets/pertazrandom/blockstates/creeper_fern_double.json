@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0,half=upper": {
+      "model": "pertazrandom:block/creeper_fern/double_upper_0"
+    },
+    "age=1,half=upper": {
+      "model": "pertazrandom:block/creeper_fern/double_upper_1"
+    },
+    "age=0,half=lower": {
+      "model": "pertazrandom:block/creeper_fern/double_lower_0"
+    },
+    "age=1,half=lower": {
+      "model": "pertazrandom:block/creeper_fern/double_lower_1"
+    }
+  }
+}

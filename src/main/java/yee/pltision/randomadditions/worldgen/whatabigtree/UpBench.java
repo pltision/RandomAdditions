@@ -1,4 +1,4 @@
-package yee.pltision.randomadditions.worldgen;
+package yee.pltision.randomadditions.worldgen.whatabigtree;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -8,8 +8,8 @@ import org.joml.Matrix2f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import static yee.pltision.randomadditions.worldgen.WhatABigTree.cycle;
-import static yee.pltision.randomadditions.worldgen.WhatABigTree.square;
+import static yee.pltision.randomadditions.worldgen.whatabigtree.WhatABigTree.cycle;
+import static yee.pltision.randomadditions.worldgen.whatabigtree.WhatABigTree.square;
 
 public class UpBench implements Bench {
 

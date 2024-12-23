@@ -1,4 +1,4 @@
-package yee.pltision.randomadditions.worldgen;
+package yee.pltision.randomadditions.worldgen.whatabigtree;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;

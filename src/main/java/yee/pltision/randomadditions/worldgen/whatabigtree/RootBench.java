@@ -1,11 +1,11 @@
-package yee.pltision.randomadditions.worldgen;
+package yee.pltision.randomadditions.worldgen.whatabigtree;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelAccessor;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import static yee.pltision.randomadditions.worldgen.WhatABigTree.square;
+import static yee.pltision.randomadditions.worldgen.whatabigtree.WhatABigTree.square;
 
 public class RootBench extends UpBench{
     public RootBench(Vector2f vector, int placeHeight, int length, BlockProvider wood, BlockProvider leaves){

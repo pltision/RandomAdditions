@@ -1,6 +1,6 @@
-<meta charset="UTF-8">
-<h2>植物</h2>
-<h3>雪莲</h3>
+p<meta charset="UTF-8">
+<h2>霜冻</h2>
+<h3 class="p">雪莲</h3>
 <p>一种作物，可<ins>通过雪莲花</ins>种植在下雪区域的雪块、浮冰、蓝冰上。其花可用于酿造抗冻药水，可用于抵消霜冻。</p>
 <p style="white-space:pre-line"
 >   它具有生长阶段，倒数第二个阶段只能在霜冻期间生长，在此阶段收获可以获得雪莲花。当一株雪莲开花时，会尝试带动周围的雪莲生长和开花；
@@ -8,19 +8,64 @@
     最后阶段的雪莲在<del>霜冻期间</del><ins>霜冻过后</ins>可以重新变回第一阶段，<ins>向周围扩散一株新的雪莲，</ins>并将其下方的方块按顺序转变：雪块->浮冰->蓝冰。
 </p>saurea
 
-<h3>巨型树</h3>
-<p>巨型的树，可组成生物群系。</p>
-
-<h2>生物</h2>
-
-<h3>霜冻骷髅</h3>
+<h3 class="m">霜冻骷髅</h3>
 <p>骷髅，能发射寒冰箭，在被玩家杀死后概率掉落碎霜冰。仅在霜冻时生成。</p>
 <s>在被攻击后可获得寒冰射手进度。</s>
 
-<h2>材料</h2>
-<h3>碎霜冰</h3>
+<h3 class="i">碎霜冰</h3>
 <p>用于合成Victus.Icy。</p><s>获得Victus.Icy后给予冻人心弦进度。</s>
 
-<h2>武器</h2>
-<h3>寒冰箭</h3>
+<h3 class="w">寒冰箭</h3>
 攻击实体后让其霜冻效果增加最大值（net.minecraft.world.entity.Entity#getTicksRequiredToFreeze）的二分之一，最大增加到最大值的两倍。
+
+<h2 class="p">巨型树</h2>
+<p>巨型的树，可组成生物群系或单独生存。</p>
+
+<h2>雷击</h2>
+<h3 class="a">雷电</h3>
+<p>当被非引雷三叉戟召唤的闪电劈中时，给予随机一件没有属性的装备该属性。</p>
+<h3 class="e">海神之怒</h3>
+<p>当被引雷三叉戟召唤的闪电劈中时，给予随机一件未附魔装备该魔咒。</p>
+
+<h2>未归类</h2>
+<h3 class="m">烟花蜂</h3>
+可以像烟花一样爆炸的蜜蜂。
+
+<style>
+    .i::after{
+        content:" 材料";
+        font-style: italic;
+        font-size:0.625em;
+        color: darkcyan
+    }
+    .p::after{
+        content:" 植物";
+        font-style: italic;
+        font-size:0.625em;
+        color: green
+    }
+    .w::after{
+        content:" 武器";
+        font-style: italic;
+        font-size:0.625em;
+        color: red
+    }
+    .m::after{
+        content:" 生物";
+        font-style: italic;
+        font-size:0.625em;
+        color: darkorange
+    }
+    .e::after{
+        content:" 魔咒";
+        font-style: italic;
+        font-size:0.625em;
+        color:purple
+    }
+    .a::after{
+        content:" 属性";
+        font-style: italic;
+        font-size:0.625em;
+        color:blue
+    }
+</style>

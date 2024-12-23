@@ -1,6 +1,7 @@
 package yee.pltision.randomadditions;
 
 import com.mojang.logging.LogUtils;
+import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +12,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
-import net.minecraft.world.entity.monster.Stray;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -24,27 +24,26 @@ import net.minecraft.world.level.block.HalfTransparentBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
-import yee.pltision.randomadditions.block.CloudBlock;
-import yee.pltision.randomadditions.block.CloudGlassBlock;
-import yee.pltision.randomadditions.block.SaureaFrostBlock;
-import yee.pltision.randomadditions.block.TreePlacerBlock;
+import yee.pltision.randomadditions.block.*;
 import yee.pltision.randomadditions.effect.FreezeEffect;
 import yee.pltision.randomadditions.entity.FreezeArrow;
 import yee.pltision.randomadditions.entity.FreezeSkeleton;
 import yee.pltision.randomadditions.item.projectile.FreezeArrowItem;
+import yee.pltision.randomadditions.network.Networks;
+import yee.pltision.randomadditions.worldgen.terrablender.TerraBlenderInterface;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -64,6 +63,7 @@ public class PertazAdditions
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, MODID);
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, MODID);
+    public static final DeferredRegister<Codec<? extends SurfaceRules.ConditionSource>> MATERIAL_CONDITIONS = DeferredRegister.create(Registries.MATERIAL_CONDITION, MODID);
 
     //Blocks
     public static final BlockAndItem<CloudBlock,?> CLOUD = of("cloud", () -> new CloudBlock(BlockBehaviour.Properties.of().mapColor(MapColor.NONE).randomTicks().noOcclusion().isViewBlocking((a,b,c)->false).sound(SoundType.WOOL)));
@@ -83,6 +83,15 @@ public class PertazAdditions
     });
     public static final BlockAndItem<TreePlacerBlock,?> TREE_PLACER = of("tree_placer", () -> new TreePlacerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
     public static final BlockAndItem<SaureaFrostBlock,?> SAUREA_FROST = of("saurea_frost", () -> new SaureaFrostBlock(()->MobEffects.NIGHT_VISION,120,BlockBehaviour.Properties.copy(Blocks.POPPY)));
+
+    public static final RegistryObject<CreeperFernDoubleBlock> CREEPER_FERN_DOUBLE=BLOCKS.register("creeper_fern_double",()->new CreeperFernDoubleBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).replaceable().noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY).randomTicks()));
+
+    public static final RegistryObject<CreeperFernSeedlingBlock> CREEPER_FERN_SEEDLING =BLOCKS.register("creeper_fern_seedling",()->new CreeperFernSeedlingBlock(
+            BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).replaceable().noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XYZ).ignitedByLava().pushReaction(PushReaction.DESTROY).randomTicks(),
+            CREEPER_FERN_DOUBLE
+    ));
+
+    public static final RegistryObject<BlockItem> CREEPER_SPORE_ITEM = ITEMS.register("creeper_spore",()->new BlockItem(CREEPER_FERN_SEEDLING.get(),new Item.Properties()));
 
     //Items
     public static final RegistryObject<Item> FREEZE_ARROW_ITEM = ITEMS.register("freeze_arrow", () -> new FreezeArrowItem(new Item.Properties()));
@@ -130,14 +139,18 @@ public class PertazAdditions
 
         MOB_EFFECTS.register(modEventBus);
         ENTITY_TYPES.register(modEventBus);
+//        PraAdditionSurfaceRules.MATERIAL_CONDITIONS.register(modEventBus);
 
         modEventBus.addListener(PertazAdditions::registryEntityAttributes);
+        modEventBus.addListener(PertazAdditions::commonSetup);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
+        Networks.register();
+
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+//        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     /*// Add the example block item to the building blocks tab
@@ -177,5 +190,9 @@ public class PertazAdditions
             return new BlockAndItem<>(block,ITEMS.register(id,()->i.apply(block.get())));
         }
 
+    }
+
+    public static void commonSetup(FMLCommonSetupEvent event){
+        event.enqueueWork(TerraBlenderInterface::run);
     }
 }
